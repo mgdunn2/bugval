@@ -1,0 +1,13 @@
+*.pyc
+*.ini
+stuffToKnow.txt
+*.sock
+*.sock=
+*.sqlite
+*.bak
+*.conf
+insertReadCheckin.py
+
+.vscode/
+logs/
+duval/
