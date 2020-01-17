@@ -1,8 +1,18 @@
 import sys
 import json
-from flask import Flask, send_from_directory, render_template, make_response, jsonify, request, abort
+import sqlite3
+import subprocess
+from db import transaction
+from flask_httpauth import HTTPBasicAuth
+from flask import Flask, send_from_directory, render_template, make_response, jsonify, request, abort, url_for, redirect
 
 application = Flask(__name__)
+auth = HTTPBasicAuth()
+
+confData = json.load(open('bugval.json'))
+users = confData["users"]
+sql_file = confData["sqlfile"]
+home_dir = confData["home_dir"]
 
 @application.after_request
 def add_header(r):
@@ -16,17 +26,26 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
-@application.route("/")
-def duval():
-    return render_template('bugval.html') 
+@application.route('/admin/submit', methods = ['GET', 'POST'])
+@auth.login_required
+def submit():
+    if request.method == 'POST':
+        print(request.form)
+        print(home_dir)
+        insertWisdom(request.form['title'], request.form['wisdom'].replace('\r', ''))
+        subprocess.call("./build.sh", shell=True, cwd=home_dir)
+    return render_template('submit.html')
 
-@application.route("/keyboard")
-def keyboard():
-    return render_template('keyboard.html') 
+@auth.get_password
+def get_password(username):
+    for user in users:
+        if user["user"] == username:
+            return user["password"]
+    return None
 
-@application.route("/abstractions")
-def abs():
-    return render_template('abstractions.html') 
+@transaction(sql_file)
+def insertWisdom(cursor, title, wisdom):
+    cursor.execute('insert into `wisdoms` values(?, ?)', (title, wisdom))
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0')

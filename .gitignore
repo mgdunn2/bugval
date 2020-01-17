@@ -6,8 +6,11 @@ stuffToKnow.txt
 *.sqlite
 *.bak
 *.conf
-insertReadCheckin.py
 
 .vscode/
 logs/
 duval/
+serve/
+
+build.sh
+bugval.json
