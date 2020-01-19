@@ -6,7 +6,7 @@ export default ({ data }) => {
   const duval = data.duvals
   return (
     <Container>
-      <Header />
+      <Header headerText="Wisdom!"/>
       <div>
         <h2>{duval.title}</h2>
         {duval.wisdom.split("\n").map((item, i) => <p key={i}>{item}</p>)}

@@ -1,14 +1,13 @@
 import React from "react"
 import Container from "../components/container"
+import Header from "../components/header"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
 
 export default ({ data }) => {
-  console.log(data.allDuvals)
   return(
     <Container style={{ color: `purple` }}>
-      <Img fixed={data.file.childImageSharp.fixed} />
-      <h1>Hello Bugval</h1>
+      <Header headerText="Hello Bugval"/>
       {data.allDuvals.edges.map(({ node }) => 
         (<div key={node.id}>
           <Link to={node.fields.slug}>{node.title}</Link>
@@ -28,13 +27,6 @@ export const query = graphql`
             fields {
               slug
             }
-          }
-        }
-      }
-      file(relativePath: { eq: "static/barf_bugval.png" }) {
-        childImageSharp {
-          fixed(width: 134, height: 195) {
-            ...GatsbyImageSharpFixed
           }
         }
       }

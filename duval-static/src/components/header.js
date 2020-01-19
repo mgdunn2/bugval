@@ -7,7 +7,7 @@ const randomGenerator = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export default () => {
+export default ({headerText}) => {
   const data = useStaticQuery(graphql`
     query {
       allFile(filter: {relativeDirectory: {eq: "static"}, name: {regex: "/.*bugval.*/"}}) {
@@ -29,7 +29,7 @@ export default () => {
       <div>
         <Img fixed={randomizedImage.childImageSharp.fixed} />
       </div>
-      <h1>Wisdom!</h1>
+      <h1>{headerText}</h1>
     </div>
   )
 }
