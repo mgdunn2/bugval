@@ -15,7 +15,7 @@ export default ({headerText}) => {
           node {
             childImageSharp {
               fixed(width: 134, height: 195) {
-                ...GatsbyImageSharpFixed
+                ...GatsbyImageSharpFixed_noBase64
               }
             }
           }
