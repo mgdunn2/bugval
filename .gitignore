@@ -10,6 +10,7 @@ stuffToKnow.txt
 .vscode/
 logs/
 duval/
+env/
 serve/
 
 build.sh
