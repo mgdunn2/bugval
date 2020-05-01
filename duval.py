@@ -57,7 +57,10 @@ def publish(cursor):
         subprocess.call("./build.sh", shell=True, cwd=home_dir)
     threading.Timer(5, publish).start()
 
-if __name__ == "__main__":
+def startup():
     subprocess.call("./create_db.sh", shell=True, cwd=home_dir)
     threading.Timer(5, publish).start()
+    
+if __name__ == "__main__":
+    startup()
     application.run(host='0.0.0.0')
