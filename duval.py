@@ -36,15 +36,23 @@ def insertWisdom(cursor, title, wisdom):
     cursor.execute('insert into `wisdoms` values(?, ?)', (title, wisdom))
     cursor.execute('insert into `builds` values(?, ?)', (title, 0))
 
-@transaction(sql_file)
-def publish(cursor):
-    cursor.execute('SELECT count(*) from `builds` where `isPublished` = 0')
-    results = cursor.fetchall()
-    if results[0][0] != 0:
+def publish():
+    if fetchShouldPublish():
         print("running build")
-        cursor.execute('UPDATE `builds` set `isPublished` = 1')
+        updateIsPublished()
         subprocess.call("./build.sh", shell=True, cwd=home_dir)
     threading.Timer(5, publish).start()
+
+@transaction(sql_file)
+def fetchShouldPublish(cursor):
+    cursor.execute('SELECT count(*) from `builds` where `isPublished` = 0')
+    results = cursor.fetchall()
+    return results[0][0] != 0
+
+@transaction(sql_file)
+def updateIsPublished(cursor):
+    cursor.execute('UPDATE `builds` set `isPublished` = 1')
+
 
 @application.before_first_request
 def startup():
