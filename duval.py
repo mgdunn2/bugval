@@ -53,14 +53,14 @@ def publish(cursor):
     cursor.execute('SELECT count(*) from `builds` where `isPublished` = 0')
     results = cursor.fetchall()
     if results[0][0] != 0:
+        print("running build")
         cursor.execute('UPDATE `builds` set `isPublished` = 1')
         subprocess.call("./build.sh", shell=True, cwd=home_dir)
     threading.Timer(5, publish).start()
 
+@application.before_first_request
 def startup():
-    subprocess.call("./create_db.sh", shell=True, cwd=home_dir)
     threading.Timer(5, publish).start()
     
 if __name__ == "__main__":
-    startup()
     application.run(host='0.0.0.0')
