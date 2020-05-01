@@ -2,6 +2,7 @@ import sys
 import json
 import sqlite3
 import subprocess
+import threading
 from db import transaction
 from flask_httpauth import HTTPBasicAuth
 from flask import Flask, send_from_directory, render_template, make_response, jsonify, request, abort, url_for, redirect
@@ -33,7 +34,6 @@ def submit():
         print(request.form)
         print(home_dir)
         insertWisdom(request.form['title'], request.form['wisdom'].replace('\r', ''))
-        subprocess.call("./build.sh", shell=True, cwd=home_dir)
     return render_template('submit.html')
 
 @auth.get_password
@@ -46,6 +46,18 @@ def get_password(username):
 @transaction(sql_file)
 def insertWisdom(cursor, title, wisdom):
     cursor.execute('insert into `wisdoms` values(?, ?)', (title, wisdom))
+    cursor.execute('insert into `builds` values(?, ?)', (title, 0))
+
+@transaction(sql_file)
+def publish(cursor):
+    cursor.execute('SELECT count(*) from `builds` where `isPublished` = 0')
+    results = cursor.fetchall()
+    if results[0][0] != 0:
+        cursor.execute('UPDATE `builds` set `isPublished` = 1')
+        subprocess.call("./build.sh", shell=True, cwd=home_dir)
+    threading.Timer(5, publish).start()
 
 if __name__ == "__main__":
+    subprocess.call("./create_db.sh", shell=True, cwd=home_dir)
+    threading.Timer(5, publish).start()
     application.run(host='0.0.0.0')
