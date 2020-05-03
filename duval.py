@@ -25,7 +25,7 @@ def submit():
     return render_template('submit.html')
 
 @application.route('/admin/slack_submit', methods = ['POST'])
-def submit():
+def slack_submit():
     print(request.form)
 
 @auth.get_password
