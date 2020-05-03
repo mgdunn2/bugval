@@ -24,6 +24,10 @@ def submit():
         insertWisdom(request.form['title'], request.form['wisdom'].replace('\r', ''))
     return render_template('submit.html')
 
+@application.route('/admin/slack_submit', methods = ['POST'])
+def submit():
+    print(request.form)
+
 @auth.get_password
 def get_password(username):
     for user in users:
