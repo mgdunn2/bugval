@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <head>
     <title>Submit your wisdom</title>
 </head>
@@ -9,7 +11,7 @@
         <form action="{{ url_for('submit')}}" method="POST">
             <div>Title: <input type="text" name="title" placeholder="No punctuation"></div>
             <div>
-                <textarea rows="20" cols="50" name="wisdom" placeholder="Your wisdom here..."></textarea> 
+                <textarea rows="20" cols="50" id="text1" name="wisdom" placeholder="Your wisdom here..."></textarea> 
             </div>
             <div>
                 <input type="submit">
@@ -17,3 +19,6 @@
         </form>
     </body>
 </html>
+<script>
+var simplemde = new SimpleMDE({ element: document.getElementById("text1") });
+</script>
