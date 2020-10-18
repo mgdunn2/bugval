@@ -11,7 +11,7 @@ export default ({ data }) => {
   var markdownHtml = null;
   unified()
     .use(markdown)
-    .use(html)
+    .use(html, {sanitize: true})
     .process(duval.wisdom, function (err, file) {
       if (err) throw err
       markdownHtml = String(file)
