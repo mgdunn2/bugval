@@ -1,0 +1,22 @@
+{
+  "users": [
+      {
+          "user": "grant",
+          "password": "hunter2"
+      },
+      {
+          "user": "mike",
+          "password": "hunter2"
+      },
+      {
+          "user": "brian",
+          "password": "hunter2"
+      },
+      {
+          "user": "karl",
+          "password": "hunter2"
+      }
+  ],
+  "sqlfile": "moms.sqlite",
+  "home_dir": "/Users/mdunn/moms/bugval"
+}

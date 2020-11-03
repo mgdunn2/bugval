@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ ! -e "bugval.sqlite" ] ; then
-    touch "bugval.sqlite"
+if [ ! -e "moms.sqlite" ] ; then
+    touch "moms.sqlite"
 fi
 
-sqlite3 bugval.sqlite < create.sql
+sqlite3 moms.sqlite < create.sql

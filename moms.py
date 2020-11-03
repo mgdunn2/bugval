@@ -10,23 +10,17 @@ from flask import Flask, send_from_directory, render_template, make_response, js
 application = Flask(__name__)
 auth = HTTPBasicAuth()
 
-confData = json.load(open('bugval.json'))
+confData = json.load(open('moms.json'))
 users = confData["users"]
 sql_file = confData["sqlfile"]
 home_dir = confData["home_dir"]
 
-@application.route('/admin/submit', methods = ['GET', 'POST'])
+@application.route('/admin/submit/<string:id>', methods = ['GET', 'POST'])
 @auth.login_required
-def submit():
+def submit(id):
     if request.method == 'POST':
-        print(request.form)
-        print(home_dir)
-        insertWisdom(request.form['title'], request.form['wisdom'].replace('\r', ''))
-    return render_template('submit.html')
-
-@application.route('/admin/slack_submit', methods = ['POST'])
-def slack_submit():
-    print(request.form)
+        insertData(id, request.form['title'], request.form[id].replace('\r', ''))
+    return render_template('submit.html', typeId=id)
 
 @auth.get_password
 def get_password(username):
@@ -36,9 +30,9 @@ def get_password(username):
     return None
 
 @transaction(sql_file)
-def insertWisdom(cursor, title, wisdom):
-    cursor.execute('insert into `wisdoms` values(?, ?)', (title, wisdom))
-    cursor.execute('insert into `builds` values(?, ?)', (title, 0))
+def insertData(cursor, pageType, title, wisdom):
+    cursor.execute('insert into `' + pageType + 's` values(?, ?)', (title, wisdom))
+    cursor.execute('insert into `builds` values(?, ?)', (pageType + '_' + title, 0))
 
 def publish():
     if fetchShouldPublish():

@@ -10,11 +10,11 @@ const randomGenerator = (min, max) => {
 export default ({headerText}) => {
   const data = useStaticQuery(graphql`
     query {
-      allFile(filter: {relativeDirectory: {eq: "static"}, name: {regex: "/.*bugval.*/"}}) {
+      allFile(filter: {relativeDirectory: {eq: "static"}, name: {regex: "/.*moms.*/"}}) {
         edges {
           node {
             childImageSharp {
-              fixed(width: 134, height: 195) {
+              fixed(width: 150, height: 220) {
                 ...GatsbyImageSharpFixed_noBase64
               }
             }

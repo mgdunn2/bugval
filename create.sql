@@ -1,2 +1,3 @@
-CREATE TABLE IF NOT EXISTS `wisdoms`(`title` TEXT, `wisdom` TEXT);
-CREATE TABLE IF NOT EXISTS `builds`(`wisdom_title` TEXT, `isPublished` INTEGER);
+CREATE TABLE IF NOT EXISTS `vibes`(`title` TEXT, `vibe` TEXT);
+CREATE TABLE IF NOT EXISTS `ideas`(`title` TEXT, `idea` TEXT);
+CREATE TABLE IF NOT EXISTS `builds`(`title` TEXT, `isPublished` INTEGER);

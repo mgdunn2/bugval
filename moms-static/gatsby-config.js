@@ -25,19 +25,37 @@ module.exports = {
       // Querying to a SQLite database
       resolve: `gatsby-source-sql`,
       options: {
-        typeName: 'Duvals',
-        fieldName: 'chinook',
+        typeName: 'Vibes',
+        fieldName: 'chanook',
         dbEngine: {
           client: 'sqlite3',
           connection: {
-            filename: '../bugval.sqlite',
+            filename: '../moms.sqlite',
           }
         },
         useNullAsDefault: true,
         queryChain: function(x) {
-          return x.select("title", "wisdom").from("wisdoms")
+          return x.select("title", "vibe").from("vibes")
         }
-      },
+      }
+    },
+    {
+      // Querying to a SQLite database
+      resolve: `gatsby-source-sql`,
+      options: {
+        typeName: 'Ideas',
+        fieldName: 'chanook',
+        dbEngine: {
+          client: 'sqlite3',
+          connection: {
+            filename: '../moms.sqlite',
+          }
+        },
+        useNullAsDefault: true,
+        queryChain: function(x) {
+          return x.select("title", "idea").from("ideas")
+        }
+      }
     }
   ]
 }

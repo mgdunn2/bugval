@@ -1,4 +1,4 @@
-from duval import application
+from moms import application
 
 if __name__ == "__main__":
     application.run()
