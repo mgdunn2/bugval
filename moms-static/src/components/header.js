@@ -14,8 +14,8 @@ export default ({headerText}) => {
         edges {
           node {
             childImageSharp {
-              fixed {
-                ...GatsbyImageSharpFixed
+              fixed(width: 150, height: 220) {
+                ...GatsbyImageSharpFixed_noBase64
               }
             }
           }
