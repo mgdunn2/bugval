@@ -9,7 +9,7 @@ export default ({ data }) => {
       <Header headerText="Hello Bugval"/>
       {data.allDuvals.edges.map(({ node }) => 
         (<div key={node.id}>
-          <Link to={node.fields.slug}>{node.title}</Link>
+          <Link to={'wisdom/' + node.fields.slug}>{node.title}</Link>
         </div>)
       )}
     </Container>

@@ -3,7 +3,7 @@ const path = require(`path`)
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   if (node.internal.type === `Duvals`) {
-    const slug = 'wisdom/' + encodeURI(node.title.replace(/ /g, "_"))
+    const slug = encodeURI(node.title.replace(/ /g, "_"))
     createNodeField({
       node,
       name: `slug`,
