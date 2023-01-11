@@ -20,7 +20,7 @@
     "gatsby-plugin-typography": "^2.5.13",
     "gatsby-source-filesystem": "^2.3.34",
     "gatsby-source-sql": "git+https://github.com/mrfunnyshoes/gatsby-source-sql.git",
-    "gatsby-transformer-remark": "^2.8.40",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^2.5.17",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
